@@ -35,6 +35,16 @@
 * Quiz
 ** Felt a bit trickier, but still 5/5
 * Regularization
+** If space of hypotheses too high relative to data, might overfit
+** Throwing away some features may end up removing data, don't want.
+** Regularization will lessen some of the features.
+* Cost Function for regularization
+** Smaller values of theta are "simpler" and less prone to overfitting
+** Include sum of thetas in cost function multiplied by a regularization parameter
+** Could underfit if very large
+* Regularized Linear regression
+** Include regularitzation parameter at end of normal cost function.
+** Gradient descent has a "decay" term on theta, as well as normal gradient portion
 
 * Questions
 ** What would cost function look for non-binary classification?
