@@ -1,0 +1,40 @@
+* Linear regression may not work well for classification
+** Only want discrete number of values
+*
+* Logistic regression
+** All values within 0->1
+** Uses a sigmoid function to keep within this boundary: g(z) = 1/1 + e^-z
+** Could be interpreted as probability that something has a particular outcome given data (and hyptothesis parameters)
+* Decision boundary
+** g(z) >= .5 when z >= 0, or when theta'*x >= 0
+** Shows a line as a decision boundary which separates out two points based on two features.
+** Decision boundaries don't always need to be linear/plane/etc. Can be funky based on feature representation.
+* Cost function
+** Cost function used for linear regression leads to non-convex when using sigmoid
+** Specified a const function that was -log(h(x)) for y =1 and -log(1 - h(x)) for y=0
+** Starts at 0 when matches with high confidence, infinite elsewhere.
+** Mentioned at the end that this would actually be a convex cost function
+* Simplified cost function
+** Used -ylog(h(x)) - (1 - y)log(1 - h(x)) which combines into single term
+** This cost function can be derived as a maximum likelihood estimator
+** Can use gradient descent to find this term, very similar approach as it was with linear regression.
+* Advanced optimization
+** Gradient descent is one particular way to optimize for a particular cost function
+** Conjugate Gradient, BFGS, L-BFGS needed
+** Advantages are that there is no manual alpha-step needed and faster to calc, but disadvatage is more complex.
+** One thing in common is that they all need a cost function as well as a gradient-of-cost-function
+** Showed a Matlab/Octave method called fminunc which uses this.
+* Multiclass classification
+** Extending to more than one classification.
+** Choose one classification to train on, and mark all other outcomes as the same.
+*** For example, for three classifications A, B, and C train three different hypotheses
+**** A from everything else
+**** B from everything else
+**** C from everything else
+
+* Quiz
+** Felt a bit trickier, but still 5/5
+* Regularization
+
+* Questions
+** What would cost function look for non-binary classification?
