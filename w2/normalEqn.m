@@ -4,7 +4,8 @@ function [theta] = normalEqn(X, y)
 %   regression using the normal equations.
 
 theta = zeros(size(X, 2), 1);
-
+pseudo = pinv(X'*X);
+theta = pseudo*X'*y;
 % ====================== YOUR CODE HERE ======================
 % Instructions: Complete the code to compute the closed form solution
 %               to linear regression and put the result in theta.
