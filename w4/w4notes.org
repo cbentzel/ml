@@ -1,0 +1,47 @@
+* Neural networks
+** State of the art
+* Non-linear hypothesis
+** Could use lots of polynomial terms with logistic regression to do non-linear classification
+** Works OK when only a few features
+** As features increase, number of terms has features grow by ~N^2 so lots of concerns with overtraining and complexity
+** Could just do x1^2, x2^2 but limited to axis-aligned ellipses
+** Showed doing quadratic features for a 50x50 pixel image would lead to 3 million features.
+* Neurons and the brain
+** Rather than do high-level programs to describe all amazing things brain does, maybe only one learning algorithm
+** Could rewire portions of brain to learn how to do something else (brain rewiring).
+** Instead of lots of algorithms to do different things, could approximate brain to only do one thing.
+** A bunch of cool examples like brainport
+* Model representation
+** Nucleu processing, Dendrite as input wires, axon as output wires
+** Neurons send little spikes/pulses of electrons. Can send between neurons or also to physical data.
+** Artificial model is a neuron as a logistic function. Input wires are a bunch of features, then sends out others.
+** Showed a graph of neural networks with a number of layers. Input layer, output layer "Hidden layer"
+** Dimension of theta(j) where j is layer.
+* Model Representation 2
+** Focused on how to compute hypotheses efficiently (not focused on training AFAIK).
+** Uses z1(2) to represent the weighted linear combination of inputs that is then fed into sigmoid function
+** All of this for a specific layer is a theta-matrix, and X is input including bias factor.
+** [Why is superscript of 1 used for theta, but 2 used for z/g - is that because it's more like output?]
+** For next layer, can just use z(3) = theta(2) a(2).
+** Called forward propagation: start at layer 1, proceed to layer N. Can use efficient computation at each layer.
+** Forward propagation pretty basic, and easy to vectorize.
+** One way to think about neural networks is that the final layer is effectively just logistic regression.
+*** Linear combination of inputs from previous layer fed into sigmoid function
+*** So then the "hidden layers" can be thought of as extracting interesting features from basic ones.
+* Examples and intuitions 1 & 2
+** Doing a simple XNOR example (NOT (X1 XOR X2))
+** Can we get a neural network to recognize logical AND function? A simple one level one.
+*** Uses -30 for bias function, +20 for X1, +20 for X2 which works out to logical AND
+*** Showed an example to generate logical OR as well using different weights.
+** Very simple network for negation - just a single input neural network with bias.
+** For (NOT X1) and (NOT X2) can do a single network with 2 inputs.
+** Then showed a two layer neural network with one calculating AND, one calculating NAND, feeding into OR to get XNOR
+** Build more and more complex function
+** Yann LeCun did neural network for handwriting recognition for zip codes.
+* Multi-class classification and Neural networks
+** Handwriting recognition had 10 possible categories
+** Have multiple output units rather than one output unit. Should be single one showing 1.
+** Like one-versus-all for logistic regression that we showed.
+** Training set would be explicitly for y(i) = all 1s/0s for other things.
+* Questions?
+** How do we determine confidence in output? Just showing binary 0/1? How do we determine uncertainty?
