@@ -20,12 +20,18 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+% Is there a good way to vectorize this?
+for i = 1:m,
+    hyp = sigmoid(X(i, :)*theta);
+    term = -y(i)*log(hyp) - (1 - y(i))*log(1 - hyp);
+    J += term/m;
+end
 
-
-
-
-
-
+for i = 1:m,
+    hyp = sigmoid(X(i, :)*theta);
+    term = (hyp - y(i))/m;
+    grad += term*X(i, :)'ex;
+end
 
 % =============================================================
 
