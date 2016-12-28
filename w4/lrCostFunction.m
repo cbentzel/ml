@@ -36,17 +36,19 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
-
-
-
-
-
-
-
+% hyp is a vector on number of samples.
+hyp = sigmoid(X*theta);
+res = -y.*log(hyp) - (1-y).*log(1-hyp);
+J = sum(res)/m;
+% regularization
+J += (lambda/(2.0*m))*(sum(theta.^2) - theta(1)^2);
 
 
 % =============================================================
 
-grad = grad(:);
+grad = X'*(hyp - y)/m;
+reg_grad = (lambda/m)*theta;
+reg_grad(1) = 0;
+grad += reg_grad;
 
 end
