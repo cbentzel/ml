@@ -30,7 +30,7 @@ end
 for i = 1:m,
     hyp = sigmoid(X(i, :)*theta);
     term = (hyp - y(i))/m;
-    grad += term*X(i, :)'ex;
+    grad += term*X(i, :)';
 end
 
 % =============================================================
