@@ -73,7 +73,7 @@ pause;
 %  Randomly permute examples
 rp = randperm(m);
 
-for i = 1:m
+for i = 1:5
     % Display 
     fprintf('\nDisplaying Example Image\n');
     displayData(X(rp(i), :));
