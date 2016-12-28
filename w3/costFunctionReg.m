@@ -17,6 +17,24 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
+% Is there a good way to vectorize this?
+for i = 1:m,
+    hyp = sigmoid(X(i, :)*theta);
+    term = -y(i)*log(hyp) - (1 - y(i))*log(1 - hyp);
+    J += term/m;
+end
+% Add regularization term.
+J += (lambda/(2.0*m))*(sum(theta.^2) - theta(1)^2);
+
+for i = 1:m,
+    hyp = sigmoid(X(i, :)*theta);
+    term = (hyp - y(i))/m;
+    grad += term*X(i, :)';
+end
+% Add regularization term.
+reg_grad = (lambda/m)*theta;
+reg_grad(1) = 0;
+grad += reg_grad;
 
 
 
