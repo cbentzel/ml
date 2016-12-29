@@ -29,3 +29,5 @@
 *** Use gradient checking to compare the gradients and make sure backprop working ok (then disable)
 *** Use gradient descent or other optimization technique to minimize J(theta) as a function of theta.
 *** Neural networks have a non-convex cost function, so gradient descent could reach local minima
+** Showed a graph of non-convex J(theta) with two theta values, as well as wanting J(theta) to go down
+* Autonomous driving example
