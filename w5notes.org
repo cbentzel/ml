@@ -1,0 +1,31 @@
+* Backpropagation (didn't take enough notes)
+* Unrolling parameters
+** Implementation-specific issue about taking theta and gradient matrices and converting into a single vector
+** Doing this since fmincg and other methods expect it.
+** Takes advantage of (:) operation on matrix getting big vector.
+** To put vector back into matrix, use the reshape operation.
+* Gradient checking
+** We have a closed form version for partial derivatives of cost function in neural network.
+** Possible for bugs - one simpler solution is to do a numerical solution to this.
+** Can numerically approximate using +epislon, -epsilon, and divide by
+** Do somethng similar in a vectorized way, can check gradient by only doing deltas for each theta version.
+** If the two versions look pretty similar, use it.
+** Backprop is much cheaper than numerical gradient checking.
+* Random initialization
+** Need initial value for theta - how do we do it?
+** Using all zeros fine for logistic regression but not great for full neural network
+** If just zeroes, parameters going to inputs will be identical with gradient descent.
+** Use random initialization to break symmetric weights and allow things to proceed independently.
+* Putting it together
+** For output units, use a vector of 1 in the correct position and 0 in the other.
+** Commonly use 1 hidden layer, but if more have the same number of hidden units (the more the better).
+** Number of hidden units/layer comparable or a bit bigger than number of input features.
+** Now that we have neural network structure, need to:
+*** Randomly initialize weights.
+*** Implement forward propagation to get output hypothesis from input
+*** Then implement cost function
+*** Next do backpropagation to compute partial derivatives/gradient
+*** For each training example, do forwward prop, then backprop for gradient.
+*** Use gradient checking to compare the gradients and make sure backprop working ok (then disable)
+*** Use gradient descent or other optimization technique to minimize J(theta) as a function of theta.
+*** Neural networks have a non-convex cost function, so gradient descent could reach local minima
