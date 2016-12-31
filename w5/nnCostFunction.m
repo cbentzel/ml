@@ -49,7 +49,7 @@ a2 = [ones(m, 1) a2];
 z3 = Theta2*a2';
 a3 = sigmoid(z3)';
 
-% Vectorized Cost function.
+% Vectorized non-regularized cost function.
 lgX = log(a3);
 negLgX = log(1 - a3);
 foo = zeros(m, num_labels);
@@ -61,6 +61,15 @@ resB = -(1 - foo).*negLgX;
 res = resA + resB;
 vecJ = sum(sum(res));
 J = vecJ/m;
+
+% Add regularization parameters.
+normTheta1 = Theta1(:, 2:input_layer_size+1);
+normTheta2 = Theta2(:, 2:hidden_layer_size+1);
+normTheta1 = normTheta1.^2;
+normTheta2 = normTheta2.^2;
+reg = sum(sum(normTheta1)) + sum(sum(normTheta2));
+reg *= (lambda/(2*m));
+J += reg;
 
 %
 % Part 2: Implement the backpropagation algorithm to compute the gradients
