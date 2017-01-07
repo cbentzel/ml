@@ -1,4 +1,4 @@
-function [J grad] = nnCostFunction(nn_params, ...
+function [J belch] = nnCostFunction(nn_params, ...
                                    input_layer_size, ...
                                    hidden_layer_size, ...
                                    num_labels, ...
@@ -14,6 +14,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 %   partial derivatives of the neural network.
 %
 
+fprintf("Starting nnCostFunction.\n");
 % Reshape nn_params back into the parameters Theta1 and Theta2, the weight matrices
 % for our 2 layer neural network
 Theta1 = reshape(nn_params(1:hidden_layer_size * (input_layer_size + 1)), ...
@@ -65,9 +66,7 @@ J = vecJ/m;
 % Add regularization parameters.
 normTheta1 = Theta1(:, 2:input_layer_size+1);
 normTheta2 = Theta2(:, 2:hidden_layer_size+1);
-normTheta1 = normTheta1.^2;
-normTheta2 = normTheta2.^2;
-reg = sum(sum(normTheta1)) + sum(sum(normTheta2));
+reg = sum(sum(normTheta1.^2)) + sum(sum(normTheta2.^2));
 reg *= (lambda/(2*m));
 J += reg;
 
@@ -86,6 +85,54 @@ J += reg;
 %         Hint: We recommend implementing backpropagation using a for-loop
 %               over the training examples if you are implementing it for the 
 %               first time.
+
+r = m;
+Grad1 = zeros(hidden_layer_size, 1);
+Grad2 = zeros(num_labels, 1);
+
+for t = 1:r,
+    % Feed-forward the result
+    a1 = X(t, :)';
+    %fprintf("Size a1=%d\n", size(a1));
+    %fprintf("Size Theta1=%d\n", size(Theta1));
+    z2 = (Theta1*a1);
+    %fprintf("Size z2=%d\n", size(z2));
+    a2 = [1; sigmoid(z2)];
+    %fprintf("Size a2=%d\n", size(a2));
+    %fprintf("Size Theta2=%d\n", size(Theta2));
+    z3 = Theta2*a2;
+    %fprintf("Size z3=%d\n", size(z3));
+    a3 = sigmoid(z3);
+
+    % Calculate delta for outputs.
+    k = zeros(num_labels, 1);
+    k(y(t)) = 1;
+    del3 = a3 - k;
+    %fprintf("Size del3=%d\n", size(del3));
+
+    % Calculate delta for hidden layers
+    del2 = Theta2'*del3.*sigmoidGradient([1; z2]);
+    
+    % Add to gradient
+    %fprintf("Size del2=%d\n", size(del2));
+    %fprintf("Size a1=%d\n", size(a1));
+    %fprintf("Size del3=%d\n", size(del3));
+    %fprintf("Size a2=%d\n", size(a2));
+    Grad1 = Grad1 + del2(2:end)*a1';
+    Grad2 = Grad2 + del3*a2';
+end;
+
+%fprintf("Size Theta1=%d\n", size(Theta1));
+%fprintf("Size Theta2=%d\n", size(Theta2));
+%fprintf("Size Grad1=%d\n", size(Grad1));
+%fprintf("Size Grad2=%d\n", size(Grad2));
+Grad1 /= m;
+Grad2 /= m;
+
+%if (size(belch, 1) == 38),
+%   disp(belch);
+%end;
+
 %
 % Part 3: Implement regularization with the cost function and gradients.
 %
@@ -95,16 +142,13 @@ J += reg;
 %               and Theta2_grad from Part 2.
 %
 
+Reg1 = [zeros(size(Theta1, 1), 1) (lambda/m)*Theta1(:, 2:end)];
+Reg2 = [zeros(size(Theta2, 1), 1) (lambda/m)*Theta2(:, 2:end)];
 
+Grad1 += Reg1;
+Grad2 += Reg2;
 
-
-
-
-
-
-
-
-
+belch = [Grad1(:); Grad2(:)];
 
 
 

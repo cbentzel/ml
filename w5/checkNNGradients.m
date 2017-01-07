@@ -31,8 +31,14 @@ nn_params = [Theta1(:) ; Theta2(:)];
 costFunc = @(p) nnCostFunction(p, input_layer_size, hidden_layer_size, ...
                                num_labels, X, y, lambda);
 
+%fprintf("Calling costFunc\n");
 [cost, grad] = costFunc(nn_params);
+%fprintf("Done calling costFunc\n");
 numgrad = computeNumericalGradient(costFunc, nn_params);
+% numgrad = grad;
+
+%fprintf("Size grad=%d\n", size(grad));
+%fprintf("Size numgrad=%d\n", size(numgrad));
 
 % Visually examine the two gradient computations.  The two columns
 % you get should be very similar. 
