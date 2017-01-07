@@ -23,6 +23,9 @@ prod = X*theta - y;
 small_theta = theta(2:end, :);
 J = (prod'*prod + lambda*small_theta'*small_theta)/(2*m);
 
+grad = (X'*prod + lambda*theta)/m;
+grad(1) -= lambda*theta(1)/m;
+
 % =========================================================================
 
 end
