@@ -16,6 +16,10 @@ sim = 0;
 %
 %
 
+del = x1 - x2;
+len_squared = del'*del;
+z = -len_squared/(2*sigma*sigma);
+sim = e^z;
 
 
 
