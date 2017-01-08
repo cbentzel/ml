@@ -7,9 +7,6 @@ function [C, sigma] = dataset3Params(X, y, Xval, yval)
 %   sigma based on a cross-validation set.
 %
 
-% You need to return the following variables correctly.
-C = 1;
-sigma = 0.3;
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Fill in this function to return the optimal C and sigma
@@ -23,8 +20,33 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+sampleC = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+sampleSigma = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
 
+function error = trainAndFindError(X, y, Xval, yval, C, sigma)
+         model = svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
+         predictions = svmPredict(model, Xval);
+         error = mean(double(predictions ~= yval));
+end
 
+minError = trainAndFindError(X, y, Xval, yval, sampleC(1), sampleSigma(1));
+C = sampleC(1);
+sigma = sampleSigma(1);
+
+for i=1:length(sampleC),
+    testC = sampleC(i);
+    for j = 1:length(sampleSigma),
+        testSigma = sampleSigma(j);
+        error = trainAndFindError(X, y, Xval, yval, testC, testSigma);
+        fprintf("Error=%f\tC = %f\sigma=%f\n", error, testC, testSigma);
+        if (error < minError),
+           fprintf("New min error\n");
+           minError = error;
+           C = testC;
+           sigma = testSigma;
+        end
+    end
+end
 
 
 
