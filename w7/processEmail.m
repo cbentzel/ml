@@ -97,14 +97,18 @@ while ~isempty(email_contents)
     %       str2). It will return 1 only if the two strings are equivalent.
     %
 
-
-
-
-
-
-
-
-
+    % Looks like vocabList is a cell-array rather than a hashmap/dictionary
+    index = 0;
+    for i=1:length(vocabList),
+        if (strcmp(str, vocabList{i}) == 1),
+           index = i;
+           break;
+        end
+    end
+    if (index > 0),
+       word_indices = [word_indices index];
+       continue;
+    end
 
     % =============================================================
 
