@@ -50,7 +50,9 @@ fprintf('\nExtracting features from sample email (emailSample1.txt)\n');
 % Extract Features
 file_contents = readFile('emailSample1.txt');
 word_indices  = processEmail(file_contents);
+fprintf("Getting features\n");
 features      = emailFeatures(word_indices);
+fprintf("Done with features\n");
 
 % Print Stats
 fprintf('Length of feature vector: %d\n', length(features));
