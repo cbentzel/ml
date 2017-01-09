@@ -29,7 +29,8 @@ centroids = zeros(K, n);
 for i=1:K,
     matchIndices = find(idx == i);
     matchPoints = X(matchIndices, :);
-    centroids(i, :) = mean(matchPoints);
+    avg = mean(matchPoints);
+    centroids(i, :) = avg;
 end
 
 

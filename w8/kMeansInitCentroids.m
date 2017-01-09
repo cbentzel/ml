@@ -13,7 +13,9 @@ centroids = zeros(K, size(X, 2));
 %               the dataset X
 %
 
-
+% randsample would work but looks like not in by deafult
+shuffle = randperm(length(X));
+centroids = X(shuffle(1:K), :);
 
 
 
