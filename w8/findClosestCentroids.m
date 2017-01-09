@@ -21,12 +21,29 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
+% Could we compute a voronoi diagram?
 
+% Just doing a simple brute force loop for now
 
+function dist = computeDistance(point, centroid)
+         delta = point - centroid;
+         dist = delta*delta';
+end
 
-
-
-
+for i=1:length(X),
+    dist = computeDistance(X(i, :), centroids(1, :));
+    idx(i, 1) = 1;
+    for j=2:K,
+        curDist = computeDistance(X(i, :), centroids(j, :));
+        if (curDist < dist)
+           dist = curDist;
+           idx(i, 1) = j;
+        end
+    end
+end
+        
+%
+% Another general approach - commpute negative 
 % =============================================================
 
 end
