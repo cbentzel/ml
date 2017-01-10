@@ -21,7 +21,19 @@ sigma2 = zeros(n, 1);
 %               should contain variance of the i-th feature.
 %
 
+mu = mean(X)';
 
+% Ah: this is doing full covariance rather than axis-aligned.
+%xMinMu = X - ones(m, n).*mu';
+%sigma2 = ((xMinMu'*xMinMu)/m)';
+
+% Doing sigma2 but also axis aligned and vectorized.
+for i=1:n,
+    muI = mu(i, 1) * ones(m, 1);
+    delta = X(:, i) - muI;
+    sigmaI = (delta'*delta)/m;
+    sigma2(i, 1) = sigmaI;
+end
 
 
 
