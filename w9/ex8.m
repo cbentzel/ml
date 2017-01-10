@@ -113,6 +113,13 @@ pval = multivariateGaussian(Xval, mu, sigma2);
 %  Find the best threshold
 [epsilon F1] = selectThreshold(yval, pval);
 
+%  Find the outliers in the training set and plot the
+outliers = find(p < epsilon);
+
+%  Draw a red circle around those outliers
+hold on
+plot(X(outliers, 1), X(outliers, 2), 'ro', 'LineWidth', 2, 'MarkerSize', 10);
+hold off
 fprintf('Best epsilon found using cross-validation: %e\n', epsilon);
 fprintf('Best F1 on Cross Validation Set:  %f\n', F1);
 fprintf('# Outliers found: %d\n', sum(p < epsilon));
