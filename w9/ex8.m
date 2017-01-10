@@ -104,7 +104,7 @@ load('ex8data2.mat');
 %  Apply the same steps to the larger dataset
 [mu sigma2] = estimateGaussian(X);
 
-%  Training set 
+%  Training set
 p = multivariateGaussian(X, mu, sigma2);
 
 %  Cross-validation set
@@ -120,6 +120,7 @@ outliers = find(p < epsilon);
 hold on
 plot(X(outliers, 1), X(outliers, 2), 'ro', 'LineWidth', 2, 'MarkerSize', 10);
 hold off
+
 fprintf('Best epsilon found using cross-validation: %e\n', epsilon);
 fprintf('Best F1 on Cross Validation Set:  %f\n', F1);
 fprintf('# Outliers found: %d\n', sum(p < epsilon));
