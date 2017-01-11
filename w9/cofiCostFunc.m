@@ -46,9 +46,10 @@ predictions = X*Theta';
 diff = predictions - Y;
 ratedDiffs = diff.*R;
 
-% Cost is just sum of squares of diffs.
-squaredError = ratedDiffs.^2;
-J = sum(sum(squaredError/2));
+% Cost is sum of square of diffs plus regularization components
+squaredError = sum(sum(ratedDiffs.^2))/2;
+regCost = (lambda/2) * (sum(sum(Theta.^2)) + sum(sum(X.^2)));
+J = squaredError + regCost;
 
 % Gradients.
 X_grad = ratedDiffs * Theta;
