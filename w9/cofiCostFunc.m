@@ -40,17 +40,19 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
-% We only want to use cost function when R is set.
-% So, for a user take the trained theta and the trained movie feature x, and predict outcome.
-% Compare to what was set with y, square.
-% I wonder if we could do this first with a full matrix multiply, and then do a .* R.
-% But there might be other ways to do sparse matrix compute.
-
+% Both cost and gradient use diffs of prediction from actual for
+% the rated movies. ratedDiffs captures this.
 predictions = X*Theta';
 diff = predictions - Y;
-ratedDiffOnly = diff.*R;
-squaredError = ratedDiffOnly.^2;
+ratedDiffs = diff.*R;
+
+% Cost is just sum of squares of diffs.
+squaredError = ratedDiffs.^2;
 J = sum(sum(squaredError/2));
+
+% Gradients.
+X_grad = ratedDiffs * Theta;
+Theta_grad = ratedDiffs' * X;
 
 % =============================================================
 
