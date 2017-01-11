@@ -52,8 +52,8 @@ regCost = (lambda/2) * (sum(sum(Theta.^2)) + sum(sum(X.^2)));
 J = squaredError + regCost;
 
 % Gradients.
-X_grad = ratedDiffs * Theta;
-Theta_grad = ratedDiffs' * X;
+X_grad = ratedDiffs * Theta + lambda * X;
+Theta_grad = ratedDiffs' * X + lambda * Theta;
 
 % =============================================================
 
